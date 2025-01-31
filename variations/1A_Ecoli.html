@@ -41,8 +41,8 @@
         @keyframes moveSquare {
             0%   { transform: translate(0, 0) scaleX(2); }
             25%  { transform: translate(100px, 0) scaleX(2); } 
-            50%  { transform: translate(100px, 70px) scaleX(2); } 
-            75%  { transform: translate(0px, 70px) scaleX(2); } 
+            50%  { transform: translate(100px, 50px) scaleX(2); } 
+            75%  { transform: translate(0px, 50px) scaleX(2); } 
             100% { transform: translate(0, 0) scaleX(2); } 
         }
 
@@ -93,7 +93,7 @@
 
         const maxTextWidth = 200;
         const startX = containerWidth * 0.01 + Math.random() * (containerWidth * 0.5);
-        const startY = index * lineSpacing*0.95 + 10;
+        const startY = index * lineSpacing*1.2 + 10;
 
         lineElem.style.left = `${startX}px`;
         lineElem.style.top =`${startY}px`;
@@ -129,7 +129,7 @@
                     }, 1000); // 1秒間回転
                 }, 1000); // 回転前の1秒停止
             }
-        }, 3000); // 3秒ごとに回転発生
+        }, 1000); // 1秒ごとに回転発生
 
        
 
