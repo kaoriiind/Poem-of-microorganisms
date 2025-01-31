@@ -113,6 +113,19 @@
     }
 }
 
+@media (max-width: 768px) {
+            .grid-container {
+                grid-template-columns: 1fr; /* 1列 */
+                grid-template-rows: repeat(4, auto); /* 4行 */
+                gap: 10px;
+            }
+
+            .grid-item {
+                width: 90vw; /* スマホでは画面幅いっぱい */
+                max-width: 300px; /* 最大300px */
+                margin: 0 auto;
+            }
+        }
     </style>
 </head>
 <body>
