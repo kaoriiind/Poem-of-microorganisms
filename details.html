@@ -76,26 +76,30 @@
 /* 📱 スマホ（768px以下）の右端見切れ対策 */
 @media (max-width: 768px) {
     body {
-        display: block; /* 縦並び */
-        margin: 10px; /* 右端が見切れないようにマージンを追加 */
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        padding: 0;
     }
 
     .representation {
         width: 100%;
-        height: 50vh; /* iframeを画面の半分の高さに */
+        height: auto; /* 🔹 高さを自動調整 */
+        max-height: 100vh; /* 🔹 画面全体にフィット */
     }
 
     .explanation {
-        width: calc(100% - 20px); /* 余白を考慮 */
-        padding: 10px; /* 右端の余白 */
+        width: 100%;
+        padding: 10px;
         text-align: center;
+        overflow-y: auto; /* 🔹 スクロール可能に */
+        max-height: 40vh; /* 🔹 解説部分がスクロール可能 */
     }
 
-    .nav-buttons {
-        position: static; /* スマホでは固定解除 */
-        display: flex;
-        justify-content: center;
-        margin-top: 15px;
+    /* 🔹 h1, h2, h3 の行間を狭くする */
+    h1, h2, h3 {
+        line-height: 1.2; /* 🔹 デフォルトより狭く */
+        margin-bottom: 8px; /* 🔹 間隔を縮める */
     }
 }
 
