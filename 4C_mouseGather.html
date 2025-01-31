@@ -4,23 +4,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Microorganism Sensory Poem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: white;
             color: black;
-            font-family: Arial, sans-serif;
+            font-family:   'Orbitron', sans-serif;
             font-size: 24px;
             margin: 0;
             overflow: hidden;
         }
         .poem {
-            position: absolute;
-            white-space: pre-line;
-            left: 20px;
-            top: 20px;
-            pointer-events: none;
-            transition: transform 0.05s ease-out;
-        }
+    position: absolute;
+    white-space: pre-line;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center; /* テキストを中央揃え */
+    pointer-events: none;
+}
     </style>
 </head>
 <body>
@@ -36,9 +38,14 @@
     </div>
     <script>
         document.addEventListener("mousemove", function(event) {
-            let poem = document.getElementById("poem");
-            poem.style.transform = `translate(${event.clientX - 50}px, ${event.clientY - 20}px)`;
-        });
+    let poem = document.getElementById("poem");
+    let offsetX = 20;  // マウスカーソルからの横方向の距離
+    let offsetY = 20;  // マウスカーソルからの縦方向の距離
+
+    poem.style.left = `${event.clientX + offsetX}px`;
+    poem.style.top = `${event.clientY + offsetY}px`;
+});
+
     </script>
 </body>
 </html>

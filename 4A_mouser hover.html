@@ -4,30 +4,36 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Germ - Sensory System</title>
+    <link href="https://fonts.googleapis.com/css2?family=Fascinate&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: white;
             color: black;
-            font-family: Arial, sans-serif;
-            font-size: 24px;
-            line-height: 1.6;
-            margin: 50px;
-            white-space: pre-line;
+            font-family: 'Fascinate', cursive;
+            font-size: 32px;
+            line-height: 1.8;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
         }
 
         .poem-container {
-            text-align: left;
-            max-width: 600px;
+            max-width: 800px;
+            padding: 20px;
         }
 
         .word {
             display: inline-block;
-            transition: transform 0.5s ease-in-out;
-            margin-right: 10px; /* 単語間のスペース */
+            transition: transform 0.5s ease-in-out, color 0.3s ease-in-out;
+            margin-right: 10px;
         }
 
         .word:hover {
             transform: scale(1.5);
+            
         }
     </style>
 </head>

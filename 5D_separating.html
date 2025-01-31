@@ -125,7 +125,10 @@
             }
         }
 
-        let interval = setInterval(divideText, 3000);
+        setTimeout(() => {
+    divideText(); // 1回目の分裂を実行
+    interval = setInterval(divideText, 3000); // その後は通常のペースで進行
+}, 1000);
     </script>
 </body>
 </html>

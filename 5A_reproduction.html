@@ -17,7 +17,7 @@
             position: absolute;
             white-space: nowrap;
             font-size: 12px; /* フォントサイズを小さく */
-            line-height: 100px; /* 行間を広げる */
+            line-height: 20px; /* 行間を広げる */
         }
     </style>
 </head>
@@ -38,7 +38,7 @@
         let initialX = 20;
         let initialY = 20;
         let maxWidth = window.innerWidth - 100; // 横方向の制限
-        let maxGenerations = 8; // 分裂回数の最大値
+        let maxGenerations = 10; // 分裂回数の最大値
         let offsetX = 80; // 横方向のオフセット
         let offsetY = 15; // 縦方向のオフセット（木の枝を広げるため）
 
@@ -84,7 +84,7 @@
 
         poemLines.forEach((line, index) => {
             let delay = 2000 * Math.pow(2, index); // n行目は 2^n 秒ごとに分裂
-            createLine(line, initialX, initialY + index * 180, 1, delay); // 行間をさらに広げる
+            createLine(line, initialX, initialY + index * 90, 1, delay); // 行間をさらに広げる
         });
     </script>
 </body>

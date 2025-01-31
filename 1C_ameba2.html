@@ -176,7 +176,10 @@
         }
 
         // 5秒ごとにアニメーションを実行
-        setInterval(stretchTentacle, 5000);
+        setTimeout(() => {
+    stretchTentacle();
+    setInterval(stretchTentacle, 5000); // その後は 5 秒ごとに実行
+}, 200);
     </script>
 </body>
 </html>

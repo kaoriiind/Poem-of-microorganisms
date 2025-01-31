@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Paramecium Poem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cutive+Mono&display=swap" rel="stylesheet">
     <style>
         body {
             display: flex;
@@ -12,7 +13,7 @@
             height: 100vh;
             background-color: black;
             color: white;
-            font-family: Arial, sans-serif;
+            font-family: 'Cutive Mono', monospace;
             overflow: hidden;
         }
         .poem-container {
@@ -51,8 +52,13 @@
             
             poemLines.forEach((line, index) => {
                 const angle = (index / poemLines.length) * 2 * Math.PI;
-                const x = Math.cos(angle) * (ellipseWidth / 2) + ellipseWidth / 2;
+                let x = Math.cos(angle) * (ellipseWidth / 2) + ellipseWidth / 2;
                 const y = Math.sin(angle) * (ellipseHeight / 2) + ellipseHeight / 2;
+                
+                // Move "His childish..." line further left
+                if (index === 4) {
+                    x -= 50;
+                }
                 
                 const lineElement = document.createElement('div');
                 lineElement.className = 'poem-line';

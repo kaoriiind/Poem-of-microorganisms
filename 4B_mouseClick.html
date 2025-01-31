@@ -4,15 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Germ - Sensory System Effect</title>
+    <link href="https://fonts.googleapis.com/css2?family=Slackey&display=swap" rel="stylesheet">
     <style>
         body {
             background-color: white;
             color: black;
-            font-family: Arial, sans-serif;
+            font-family:  'Slackey', cursive;
             font-size: 24px;
             padding: 50px;
             line-height: 1.5;
             overflow: hidden;
+            position: relative;
         }
         .line {
             position: absolute;
@@ -39,8 +41,11 @@
         let baseY = 50;
         let spacing = 60;
         let screenWidth = window.innerWidth;
+        let screenHeight = window.innerHeight;
         let centerX = screenWidth / 2;
-        
+        let centerY = screenHeight / 2;
+
+        // 初期配置
         poem.forEach((text, index) => {
             let line = document.createElement("div");
             line.textContent = text;
@@ -52,35 +57,29 @@
 
         document.addEventListener("click", (event) => {
             let { clientX: x, clientY: y } = event;
-            let occupiedPositions = new Set();
+
+            // クリック位置のオフセット (dx, dy)
+            let dx = x - centerX;
+            let dy = y - centerY;
 
             lines.forEach((line, index) => {
-                let moveX = Math.random() * 100 + 50;
-                let direction = index % 2 === 0 ? 1 : -1;
-                
-                let newX, newY;
-                if (direction === 1) {
-                    // Move towards the click position
-                    newX = x + moveX;
-                    newY = baseY + index * spacing;
+                let moveX, moveY;
+                if (index < 4) {
+                    // 1〜4行目 → クリックした位置に移動
+                    moveX = x;
+                    moveY = y + (index - 1.5) * spacing * 0.5; // 少しずらして重ならないようにする
                 } else {
-                    // Move away from the click position, mirroring across the screen's center X-axis
-                    let offsetX = x - centerX;
-                    newX = centerX - offsetX + moveX;
-                    newY = baseY + index * spacing;
+                    // 5〜8行目 → クリック位置の対称点 (-x, -y) に移動
+                    moveX = centerX - dx;
+                    moveY = centerY - dy + (index - 5.5) * spacing * 0.5; // 少しずらして重ならないようにする
                 }
-                
-                // Ensure lines do not overlap
-                while (occupiedPositions.has(newY)) {
-                    newY += spacing;
-                }
-                occupiedPositions.add(newY);
 
-                // Keep lines within screen boundaries
-                newX = Math.max(50, Math.min(screenWidth - 300, newX));
-                newY = Math.max(50, Math.min(window.innerHeight - spacing, newY));
-                
-                line.style.transform = `translate(${newX - 100}px, ${newY - parseInt(line.style.top)}px)`;
+                // 画面端に行き過ぎないように制約
+                moveX = Math.max(50, Math.min(screenWidth - 300, moveX));
+                moveY = Math.max(50, Math.min(screenHeight - spacing, moveY));
+
+                // 移動
+                line.style.transform = `translate(${moveX - 100}px, ${moveY - parseInt(line.style.top)}px)`;
             });
         });
     </script>
