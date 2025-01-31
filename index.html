@@ -78,6 +78,21 @@
             font-size: 0.9em;
             border-radius: 5px;
         }
+
+        @media (max-width: 768px) {
+    .grid-container {
+        grid-template-columns: 1fr; /* 1列レイアウトに変更 */
+    }
+    
+    .grid-title {
+        font-size: 1.2em;
+        padding: 8px;
+    }
+
+    .grid-item {
+        aspect-ratio: auto; /* 正方形でなく、コンテンツに応じた高さ */
+    }
+}
     </style>
 </head>
 <body>
