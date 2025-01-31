@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Germ - Sensory System Effect</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            padding: 50px;
+            line-height: 1.5;
+            overflow: hidden;
+        }
+        .line {
+            position: absolute;
+            left: 50px;
+            white-space: nowrap;
+            transition: transform 1s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const poem = [
+            "A mighty creature is the germ,",
+            "Though smaller than the pachyderm.",
+            "His customary dwelling place",
+            "Is deep within the human race.",
+            "His childish pride he often pleases",
+            "By giving people strange diseases.",
+            "Do you, my poppet, feel infirm?",
+            "You probably contain a germ."
+        ];
+
+        let lines = [];
+        let baseY = 50;
+        let spacing = 60;
+        let screenWidth = window.innerWidth;
+        let centerX = screenWidth / 2;
+        
+        poem.forEach((text, index) => {
+            let line = document.createElement("div");
+            line.textContent = text;
+            line.classList.add("line");
+            line.style.top = `${baseY + index * spacing}px`;
+            document.body.appendChild(line);
+            lines.push(line);
+        });
+
+        document.addEventListener("click", (event) => {
+            let { clientX: x, clientY: y } = event;
+            let occupiedPositions = new Set();
+
+            lines.forEach((line, index) => {
+                let moveX = Math.random() * 100 + 50;
+                let direction = index % 2 === 0 ? 1 : -1;
+                
+                let newX, newY;
+                if (direction === 1) {
+                    // Move towards the click position
+                    newX = x + moveX;
+                    newY = baseY + index * spacing;
+                } else {
+                    // Move away from the click position, mirroring across the screen's center X-axis
+                    let offsetX = x - centerX;
+                    newX = centerX - offsetX + moveX;
+                    newY = baseY + index * spacing;
+                }
+                
+                // Ensure lines do not overlap
+                while (occupiedPositions.has(newY)) {
+                    newY += spacing;
+                }
+                occupiedPositions.add(newY);
+
+                // Keep lines within screen boundaries
+                newX = Math.max(50, Math.min(screenWidth - 300, newX));
+                newY = Math.max(50, Math.min(window.innerHeight - spacing, newY));
+                
+                line.style.transform = `translate(${newX - 100}px, ${newY - parseInt(line.style.top)}px)`;
+            });
+        });
+    </script>
+</body>
+</html>

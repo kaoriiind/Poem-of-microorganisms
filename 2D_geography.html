@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Germ - Typography Layers</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: "Courier New", monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            overflow: hidden;
+            transform: scale(0.7);
+            transform-origin: center;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            position: relative;
+        }
+        .layer {
+            font-weight: bold;
+            font-size: 1.8vw;
+            white-space: nowrap;
+            transform: scaleX(1.5);
+            margin-bottom: 6em; /* Increased spacing further */
+            position: relative;
+            z-index: 2;
+        }
+        .microbe-container {
+            position: absolute;
+            width: 100%;
+            left: 0;
+            top: 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            z-index: 1;
+        }
+        .microbe-line {
+            display: flex;
+            justify-content: center;
+            gap: 1vw;
+            margin-top: 3em;
+        }
+        .microbe {
+            font-weight: lighter;
+            font-size: 1.2vw;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="layer">A mighty creature is the germ,</div>
+        <div class="layer">Though smaller than the pachyderm.</div>
+        <div class="layer">His customary dwelling place</div>
+        <div class="layer">Is deep within the human race.</div>
+        <div class="layer">His childish pride he often pleases</div>
+    </div>
+    
+    <div class="microbe-container" id="microbeContainer"></div>
+    
+    <script>
+        const sentences = [
+            ["By", "giving", "people", "strange", "diseases."],
+            ["Do", "you,", "my", "poppet,", "feel"],
+            ["infirm?", "You", "probably", "contain"],
+            ["a", "germ."]
+        ];
+        
+        const container = document.getElementById("microbeContainer");
+        
+        sentences.forEach((sentence, index) => {
+            let lineDiv = document.createElement("div");
+            lineDiv.classList.add("microbe-line");
+            lineDiv.style.marginTop = `${index * 6}em`; // Placing words in between layers
+            
+            sentence.forEach(word => {
+                let span = document.createElement("span");
+                span.classList.add("microbe");
+                span.innerText = word;
+                lineDiv.appendChild(span);
+            });
+            
+            container.appendChild(lineDiv);
+        });
+    </script>
+</body>
+</html>

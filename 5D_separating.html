@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbial Lifespan Typography</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            font-size: 24px;
+            transition: all 1s ease-in-out;
+            letter-spacing: 3px;
+        }
+        .poem {
+            display: flex;
+            flex-direction: column;
+            transition: all 1s ease-in-out;
+        }
+        .group {
+            display: flex;
+            flex-direction: column;
+            gap: 0px; /* Initial state: no extra gap */
+            transition: all 1s ease-in-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="poem" id="poem">
+            <div id="line1">A mighty creature is the germ,</div>
+            <div id="line2">Though smaller than the pachyderm.</div>
+            <div id="line3">His customary dwelling place</div>
+            <div id="line4">Is deep within the human race.</div>
+            <div id="line5">His childish pride he often pleases</div>
+            <div id="line6">By giving people strange diseases.</div>
+            <div id="line7">Do you, my poppet, feel infirm?</div>
+            <div id="line8">You probably contain a germ.</div>
+        </div>
+    </div>
+
+    <script>
+        let stage = 0;
+        let poemContainer = document.getElementById("poem");
+
+        function divideText() {
+            stage++;
+
+            switch (stage) {
+                case 1:
+                    // First separation: Large space between line 4 & 5
+                    document.getElementById("line4").style.marginBottom = "50px";
+                    break;
+                case 2:
+                    // Second separation: Large space between line 2 & 3 and line 6 & 7
+                    document.getElementById("line2").style.marginBottom = "50px";
+                    document.getElementById("line6").style.marginBottom = "50px";
+                    
+                    // Move the four groups to different corners
+                    poemContainer.style.display = "grid";
+                    poemContainer.style.gridTemplateColumns = "1fr 1fr";
+                    poemContainer.style.gridTemplateRows = "1fr 1fr";
+                    poemContainer.style.gap = "50px";
+                    
+                    let lineGroup1 = document.createElement("div");
+                    let lineGroup2 = document.createElement("div");
+                    let lineGroup3 = document.createElement("div");
+                    let lineGroup4 = document.createElement("div");
+
+                    lineGroup1.className = "group";
+                    lineGroup2.className = "group";
+                    lineGroup3.className = "group";
+                    lineGroup4.className = "group";
+
+                    lineGroup1.appendChild(document.getElementById("line1"));
+                    lineGroup1.appendChild(document.getElementById("line2"));
+                    lineGroup1.style.justifySelf = "start";
+                    lineGroup1.style.alignSelf = "start";
+
+                    lineGroup2.appendChild(document.getElementById("line3"));
+                    lineGroup2.appendChild(document.getElementById("line4"));
+                    lineGroup2.style.justifySelf = "end";
+                    lineGroup2.style.alignSelf = "start";
+
+                    lineGroup3.appendChild(document.getElementById("line5"));
+                    lineGroup3.appendChild(document.getElementById("line6"));
+                    lineGroup3.style.justifySelf = "start";
+                    lineGroup3.style.alignSelf = "end";
+
+                    lineGroup4.appendChild(document.getElementById("line7"));
+                    lineGroup4.appendChild(document.getElementById("line8"));
+                    lineGroup4.style.justifySelf = "end";
+                    lineGroup4.style.alignSelf = "end";
+
+                    poemContainer.innerHTML = "";
+                    poemContainer.appendChild(lineGroup1);
+                    poemContainer.appendChild(lineGroup2);
+                    poemContainer.appendChild(lineGroup3);
+                    poemContainer.appendChild(lineGroup4);
+                    break;
+                case 3:
+                    // Third separation: Increase spacing between 1&2, 3&4, 5&6, 7&8
+                    document.querySelectorAll(".group").forEach(group => {
+                        group.style.gap = "50px"; // Increase space within each pair
+                    });
+                    break;
+                case 4:
+                    // Fourth separation: Increase spacing between words in each sentence
+                    document.querySelectorAll(".group div").forEach(line => {
+                        line.style.letterSpacing = "10px";
+                    });
+                    break;
+                default:
+                    clearInterval(interval);
+            }
+        }
+
+        let interval = setInterval(divideText, 3000);
+    </script>
+</body>
+</html>

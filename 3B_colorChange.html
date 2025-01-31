@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Small but Strong Poem</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            margin: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        .line {
+            font-size: 8px;
+            position: absolute;
+            white-space: nowrap;
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const lines = [
+            "A mighty creature is the germ,",
+            "Though smaller than the pachyderm.",
+            "His customary dwelling place",
+            "Is deep within the human race.",
+            "His childish pride he often pleases",
+            "By giving people strange diseases.",
+            "Do you, my poppet, feel infirm?",
+            "You probably contain a germ."
+        ];
+
+        const body = document.body;
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        const elements = [];
+
+        lines.forEach((text, index) => {
+            const lineElement = document.createElement("div");
+            lineElement.textContent = text;
+            lineElement.classList.add("line");
+            document.body.appendChild(lineElement);
+            
+            let x = Math.random() * (width - 100);
+            let y = Math.random() * (height - 20);
+            lineElement.style.left = `${x}px`;
+            lineElement.style.top = `${y}px`;
+            
+            elements.push({ element: lineElement, x, y, startX: x, dx: Math.random() * 2 + 1, maxMove: Math.random() * 50 + 30, moved: 0 });
+        });
+
+        function moveLine(obj) {
+            let interval = setInterval(() => {
+                obj.x += obj.dx;
+                obj.moved += Math.abs(obj.dx);
+                
+                obj.element.style.left = `${obj.x}px`;
+                
+                if (obj.moved >= obj.maxMove) {
+                    body.style.backgroundColor = "gray";
+                    setTimeout(() => body.style.backgroundColor = "white", 50);
+                    clearInterval(interval);
+                    
+                    let returnInterval = setInterval(() => {
+                        obj.x -= obj.dx * 2;
+                        obj.element.style.left = `${obj.x}px`;
+                        
+                        if (obj.x <= obj.startX) {
+                            clearInterval(returnInterval);
+                        }
+                    }, 20);
+                }
+            }, 50);
+        }
+
+        function startMoving() {
+            let index = 0;
+            function moveNext() {
+                moveLine(elements[index]);
+                index = (index + 1) % elements.length;
+                setTimeout(moveNext, 5000); // Move every 10 seconds
+            }
+            
+            setTimeout(moveNext, 2000); // Start after 2 seconds
+        }
+
+        startMoving();
+    </script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microorganism Sensory Poem</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            font-size: 24px;
+            margin: 0;
+            overflow: hidden;
+        }
+        .poem {
+            position: absolute;
+            white-space: pre-line;
+            left: 20px;
+            top: 20px;
+            pointer-events: none;
+            transition: transform 0.05s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem" id="poem">
+        A mighty creature is the germ,
+        Though smaller than the pachyderm.
+        His customary dwelling place
+        Is deep within the human race.
+        His childish pride he often pleases
+        By giving people strange diseases.
+        Do you, my poppet, feel infirm?
+        You probably contain a germ.
+    </div>
+    <script>
+        document.addEventListener("mousemove", function(event) {
+            let poem = document.getElementById("poem");
+            poem.style.transform = `translate(${event.clientX - 50}px, ${event.clientY - 20}px)`;
+        });
+    </script>
+</body>
+</html>

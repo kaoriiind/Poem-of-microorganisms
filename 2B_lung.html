@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Germ - Inside the Lung</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .lung-container {
+            position: relative;
+            width: 50vw;
+            height: 50vw;
+            max-width: 500px;
+            max-height: 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .lung-text {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 14px;
+            white-space: pre;
+        }
+
+        .lung-text span {
+            position: absolute;
+            transform-origin: center;
+        }
+
+        .floating-word {
+            position: absolute;
+            font-size: 16px;
+            animation: float 5s infinite alternate ease-in-out;
+        }
+
+        @keyframes float {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-20px);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="lung-container" id="lung-text"></div>
+    <script>
+        const lungText = "A mighty creature is the germ, Though smaller than the pachyderm. His customary dwelling place Is deep within the human race. His childish pride he often pleases By giving people strange diseases.".split(" ");
+        const lungContainer = document.getElementById("lung-text");
+        const centerX = lungContainer.clientWidth / 2;
+        const centerY = lungContainer.clientHeight / 2;
+        const radius = lungContainer.clientWidth / 2.2;
+        
+        lungText.forEach((word, index) => {
+            let span = document.createElement("span");
+            span.textContent = word;
+            let angle = (index / lungText.length) * 2 * Math.PI;
+            let x = centerX + radius * Math.cos(angle);
+            let y = centerY + radius * Math.sin(angle);
+            span.style.position = "absolute";
+            span.style.left = `${x}px`;
+            span.style.top = `${y}px`;
+            lungContainer.appendChild(span);
+        });
+        
+        const floatingText = "Do you, my poppet, feel infirm? You probably contain a germ.".split(" ");
+        floatingText.forEach((word) => {
+            let span = document.createElement("span");
+            span.textContent = word;
+            span.classList.add("floating-word");
+            let floatRadius = radius * 0.6; 
+            let angle = Math.random() * 2 * Math.PI;
+            let x = centerX + floatRadius * Math.cos(angle);
+            let y = centerY + floatRadius * Math.sin(angle);
+            span.style.left = `${x}px`;
+            span.style.top = `${y}px`;
+            span.style.animationDuration = (Math.random() * 3 + 2) + "s";
+            lungContainer.appendChild(span);
+        });
+    </script>
+</body>
+</html>

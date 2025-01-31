@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title> Move like a microbes - Encherichia coli</title>
+    <link href="https://fonts.googleapis.com/css2?family=Audiowide&display=swap" rel="stylesheet">
+    <style>
+        body{
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            background: #ffffff;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'Audiowide', sans-serif;
+                }
+
+        .poem-container {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            border: 2px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .poem-line {
+            position: absolute;
+            font-size: 1.2rem;
+            white-space: nowrap;
+            transform: scaleX(2);
+            animation: moveSquare 8s infinite linear;
+        }
+
+
+        @keyframes moveSquare {
+            0%   { transform: translate(0, 0) scaleX(2); }
+            25%  { transform: translate(100px, 0) scaleX(2); } 
+            50%  { transform: translate(100px, 70px) scaleX(2); } 
+            75%  { transform: translate(0px, 70px) scaleX(2); } 
+            100% { transform: translate(0, 0) scaleX(2); } 
+        }
+
+
+        @keyframes rotate{
+            0% { transform: rotate(0deg) scaleX(2);}
+            100% { transform: rotate(360deg) scaleX(2); }
+        }
+        
+        .paused{
+            animation-play-state: paused;
+        }
+
+        .rotating {
+            animation: rotate 1s ease-in-out;
+        }
+        
+    </style>
+</head>
+<body>
+    
+    <div class="poem-container" id="poemContainer"></div>
+
+    <script>
+        const poemLines = [
+        "A mighty creature is the germ,",
+      "Though smaller than the pachyderm.",
+      "His customary dwelling place",
+      "Is deep within the human race.",
+      "His childish pride he often pleases",
+      "By giving people strange diseases.",
+      "Do you, my poppet, feel infirm?",
+      "You probably contain a germ."
+        ];
+
+
+    const container = document.getElementById('poemContainer');
+    const containerWidth = container.clientWidth;
+    const containerHeight = container.clientHeight || 500;
+
+     const lineSpacing = containerHeight / (poemLines.length + 1);
+     const poemElements =[];
+
+    poemLines.forEach((line, index) => {
+        const lineElem = document.createElement("div");
+        lineElem.classList.add("poem-line");
+        lineElem.textContent = line;
+
+        const maxTextWidth = 200;
+        const startX = containerWidth * 0.01 + Math.random() * (containerWidth * 0.5);
+        const startY = index * lineSpacing*0.95 + 10;
+
+        lineElem.style.left = `${startX}px`;
+        lineElem.style.top =`${startY}px`;
+
+        lineElem.style.animationDuration =`${7 + Math.random() * 2}s`;
+        lineElem.style.animationDelay =`${Math.random() * 2}s`; 
+
+        container.appendChild(lineElem);
+        poemElements.push(lineElem);
+    });
+
+    setInterval(() => {
+        const randomIndex = Math.floor(Math.random()* poemElements.length);
+        const randomElement = poemElements[randomIndex];
+
+        if(!randomElement.classList.contains("rotating")){
+            const originalAnimation = randomElement.style.animation;
+
+            randomElement.classList.add("paused");
+
+          
+            setTimeout(() => {
+                randomElement.classList.remove("paused");
+                randomElement.classList.add("rotating");
+                setTimeout(() => {
+                        // 1秒間停止後に元の動きを再開
+                        randomElement.classList.add("paused");
+
+                        setTimeout(() => {
+                            randomElement.classList.remove("rotating", "paused");
+                            randomElement.style.animation = originalAnimation;
+                        }, 1000); // 回転後の1秒停止
+                    }, 1000); // 1秒間回転
+                }, 1000); // 回転前の1秒停止
+            }
+        }, 3000); // 3秒ごとに回転発生
+    </script>
+
+</body>
+</html>

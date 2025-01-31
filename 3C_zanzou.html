@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Germ - Ogden Nash</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: "Courier New", Courier, monospace;
+            text-align: center;
+            padding: 50px;
+            font-size: 12px; /* Small but readable */
+            overflow: hidden;
+        }
+
+        .poem-container {
+            display: inline-block;
+            text-align: left;
+            line-height: 5em; /* 5 times font size */
+            white-space: pre-wrap;
+            position: relative;
+        }
+
+        .letter {
+            display: inline-block;
+            position: relative;
+            opacity: 0;
+            font-size: inherit;
+            animation: fadeIn 0.1s forwards;
+        }
+
+        .letter::before {
+            content: attr(data-char);
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: rgba(0, 0, 0, 0.1); /* Faint afterimage */
+        }
+
+        /* Ink Blot Effect */
+        .letter::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(1.2); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes inkBlot {
+            from {
+                width: 0;
+                height: 0;
+                opacity: 0.4;
+            }
+            to {
+                width: 100px; /* 4× the font size (12px * 4) */
+                height: 100px;
+                opacity: 0;
+            }
+        }
+
+        .ink-effect::after {
+            animation: inkBlot 0.8s forwards;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="poem-container" id="poem"></div>
+
+<script>
+    const poemText = `A mighty creature is the germ,
+Though smaller than the pachyderm.
+His customary dwelling place
+Is deep within the human race.
+His childish pride he often pleases
+By giving people strange diseases.
+Do you, my poppet, feel infirm?
+You probably contain a germ.`;
+
+    const poemContainer = document.getElementById("poem");
+
+    function typeWriterEffect(text, index) {
+        if (index < text.length) {
+            const char = text[index];
+            if (char === "\n") {
+                poemContainer.appendChild(document.createElement("br"));
+            } else {
+                const span = document.createElement("span");
+                span.classList.add("letter");
+                span.setAttribute("data-char", char);
+                span.innerText = char;
+                poemContainer.appendChild(span);
+
+                // Add ink blot effect
+                setTimeout(() => span.classList.add("ink-effect"), 50);
+            }
+            setTimeout(() => typeWriterEffect(text, index + 1), char === " " ? 50 : 100);
+        }
+    }
+
+    typeWriterEffect(poemText, 0);
+</script>
+
+</body>
+</html>

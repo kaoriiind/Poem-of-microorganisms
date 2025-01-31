@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microbial Lifespan Typography</title>
+    <style>
+        body {
+            background-color: white;
+            font-family: sans-serif;
+            color: black;
+            margin: 20px;
+            overflow: hidden; /* スクロールを防ぐ */
+            position: relative;
+        }
+        .line {
+            position: absolute;
+            white-space: nowrap;
+            font-size: 12px; /* フォントサイズを小さく */
+            line-height: 100px; /* 行間を広げる */
+        }
+    </style>
+</head>
+<body>
+    <script>
+        const poemLines = [
+            "A mighty creature is the germ,",
+            "Though smaller than the pachyderm.",
+            "His customary dwelling place",
+            "Is deep within the human race.",
+            "His childish pride he often pleases",
+            "By giving people strange diseases.",
+            "Do you, my poppet, feel infirm?",
+            "You probably contain a germ."
+        ];
+
+        let container = document.body;
+        let initialX = 20;
+        let initialY = 20;
+        let maxWidth = window.innerWidth - 100; // 横方向の制限
+        let maxGenerations = 8; // 分裂回数の最大値
+        let offsetX = 80; // 横方向のオフセット
+        let offsetY = 15; // 縦方向のオフセット（木の枝を広げるため）
+
+        function createLine(text, x, y, opacity, delay, generation = 0, direction = "root") {
+            let line = document.createElement("div");
+            line.textContent = text;
+            line.style.left = `${x}px`;
+            line.style.top = `${y}px`;
+            line.style.opacity = opacity;
+            line.classList.add("line");
+
+            // オリジナル（最初の分裂前）は太字にする
+            if (generation === 0) {
+                line.style.fontWeight = "bold";
+            }
+
+            container.appendChild(line);
+
+            setTimeout(() => {
+                let textWidth = line.offsetWidth + 10; // 文字の長さ + 10px を分裂開始位置に適用
+
+                if (generation < maxGenerations) {
+                    let newOpacity = opacity - 0.2;
+                    let newDelay = delay * 2;
+
+                    // 1回目の分裂は2つ (上と下)
+                    if (generation === 0) {
+                        createLine(text, x + textWidth, y - offsetY, newOpacity, newDelay, generation + 1, "up");
+                        createLine(text, x + textWidth, y + offsetY, newOpacity, newDelay, generation + 1, "down");
+                    } else {
+                        // 2回目以降の分裂：それぞれの分裂が新しい分裂を2つ作る（上下）
+                        if (direction === "up") {
+                            createLine(text, x + textWidth, y - offsetY * generation, newOpacity, newDelay, generation + 1, "up");
+                            createLine(text, x + textWidth, y, newOpacity, newDelay, generation + 1, "down");
+                        } else if (direction === "down") {
+                            createLine(text, x + textWidth, y, newOpacity, newDelay, generation + 1, "up");
+                            createLine(text, x + textWidth, y + offsetY * generation, newOpacity, newDelay, generation + 1, "down");
+                        }
+                    }
+                }
+            }, delay);
+        }
+
+        poemLines.forEach((line, index) => {
+            let delay = 2000 * Math.pow(2, index); // n行目は 2^n 秒ごとに分裂
+            createLine(line, initialX, initialY + index * 180, 1, delay); // 行間をさらに広げる
+        });
+    </script>
+</body>
+</html>

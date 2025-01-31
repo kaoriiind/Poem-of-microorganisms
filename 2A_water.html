@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Germ - Floating Letters</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            font-family: "Arial", sans-serif;
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            height: 100vh;
+            padding: 20px;
+            overflow: hidden;
+        }
+
+        .poem {
+            white-space: pre-wrap;
+            font-size: 24px;
+            line-height: 2.2; /* 行間を広げる */
+            position: relative;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .letter {
+            display: inline-block;
+            position: relative;
+            margin-right: 8px; /* 文字間を広げる */
+            animation: floatAnimation 3s infinite ease-in-out alternate;
+        }
+
+        @keyframes floatAnimation {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(var(--x-move, 5px), var(--y-move, 5px)); }
+        }
+    </style>
+</head>
+<body>
+    <div class="poem" id="poem"></div>
+
+    <script>
+        const text = `A mighty creature is the germ,
+Though smaller than the pachyderm.
+His customary dwelling place
+Is deep within the human race.
+His childish pride he often pleases
+By giving people strange diseases.
+Do you, my poppet, feel infirm?
+You probably contain a germ.`;
+
+        const poemContainer = document.getElementById("poem");
+
+        text.split("\n").forEach(line => {
+            let lineContainer = document.createElement("div");
+            line.split("").forEach(char => {
+                let span = document.createElement("span");
+                span.textContent = char;
+                span.classList.add("letter");
+                
+                // ランダムな動きを追加
+                const xMove = (Math.random() * 10 - 5) + "px";
+                const yMove = (Math.random() * 10 - 5) + "px";
+                span.style.setProperty("--x-move", xMove);
+                span.style.setProperty("--y-move", yMove);
+                span.style.animationDuration = (Math.random() * 2 + 2) + "s"; // 2s to 4s のランダムな速度
+                lineContainer.appendChild(span);
+            });
+            poemContainer.appendChild(lineContainer);
+        });
+    </script>
+</body>
+</html>

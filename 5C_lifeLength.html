@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Microorganism Lifespan Poem</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+        }
+        .poem {
+            position: relative;
+            width: 80vw;
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            justify-content: flex-start;
+        }
+        .line {
+            position: absolute;
+            white-space: nowrap;
+            transform-origin: left;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem" id="poem"></div>
+    <script>
+        const poemLines = [
+            "A mighty creature is the germ,",
+            "Though smaller than the pachyderm.",
+            "His customary dwelling place",
+            "Is deep within the human race.",
+            "His childish pride he often pleases",
+            "By giving people strange diseases.",
+            "Do you, my poppet, feel infirm?",
+            "You probably contain a germ."
+        ];
+        
+        const poemContainer = document.getElementById("poem");
+        const startX = 20; // Start position (left)
+        const startY = 20; // Start position (top)
+        const stepX = 30;  // Horizontal step
+        const stepY = 30;  // Vertical step
+        const minFontSize = 12; // Smallest font size
+        const maxFontSize = 48; // Largest font size
+        const minSpacing = -1;  // Tightest letter spacing
+        const maxSpacing = 5;   // Widest letter spacing
+        const minLineHeight = 1; // Smallest line height
+        const maxLineHeight = 2; // Largest line height
+        
+        poemLines.forEach((line, index) => {
+            let span = document.createElement("span");
+            span.classList.add("line");
+            span.innerText = line;
+            
+            let progress = index / (poemLines.length - 1);
+            let fontSize = minFontSize + (maxFontSize - minFontSize) * progress;
+            let letterSpacing = minSpacing + (maxSpacing - minSpacing) * progress;
+            let lineHeight = minLineHeight + (maxLineHeight - minLineHeight) * progress;
+            
+            span.style.fontSize = fontSize + "px";
+            span.style.letterSpacing = letterSpacing + "px";
+            span.style.lineHeight = lineHeight;
+            span.style.left = startX + stepX * index + "px";
+            span.style.top = startY + stepY * index + "px";
+            
+            poemContainer.appendChild(span);
+        });
+    </script>
+</body>
+</html>

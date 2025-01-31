@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Amoeba Poem</title>
+    <style>
+        body {
+            background-color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            font-family: "Arial", sans-serif;
+        }
+
+        .poem-container {
+            text-align: center;
+            font-weight: bold;
+            color: black;
+            font-size: 2.2vw;
+            letter-spacing: -0.05em;
+            line-height: 0.9;
+            width: 80%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+
+        .line {
+            display: flex;
+            justify-content: center;
+            gap: 0.2em;
+        }
+
+        .word {
+            display: inline-block;
+            transition: transform 1s ease-in-out;
+        }
+
+        /* 伸びる時のアニメーション */
+        .stretch-left {
+            transform-origin: right;
+            transform: scaleX(3.5);
+        }
+
+        .stretch-right {
+            transform-origin: left;
+            transform: scaleX(3.5);
+        }
+
+        /* 戻る時のアニメーション */
+        .shrink-left {
+            transform-origin: right;
+            transform: scaleX(1);
+        }
+
+        .shrink-right {
+            transform-origin: left;
+            transform: scaleX(1);
+        }
+    </style>
+</head>
+<body>
+    <div class="poem-container">
+        <div class="line">
+            <span class="word">A</span> 
+            <span class="word">mighty</span> 
+            <span class="word">creature</span> 
+            <span class="word">is</span> 
+            <span class="word">the</span>
+        </div>
+        <div class="line">
+            <span class="word">germ,</span> 
+            <span class="word">Though</span> 
+            <span class="word">smaller</span>
+            <span class="word">than</span>
+            <span class="word">the</span>
+        </div>
+        <div class="line">
+            <span class="word">pachyderm.</span> 
+        </div>
+        <div class="line">
+            <span class="word">His</span> 
+            <span class="word">customary</span> 
+            <span class="word">dwelling</span> 
+            <span class="word">place</span> 
+        </div>
+        <div class="line">
+            <span class="word">Is</span> 
+            <span class="word">deep</span> 
+            <span class="word">within</span> 
+            <span class="word">the</span> 
+            <span class="word">human</span> 
+        </div>
+        <div class="line">
+            <span class="word">race.</span> 
+        </div>
+        <div class="line">
+            <span class="word">His</span> 
+            <span class="word">childish</span> 
+            <span class="word">pride</span> 
+            <span class="word">he</span> 
+        </div>
+        <div class="line">
+            <span class="word">often</span> 
+            <span class="word">pleases</span> 
+            <span class="word">By</span> 
+            <span class="word">giving</span> 
+        </div>
+        <div class="line">
+            <span class="word">people</span> 
+            <span class="word">strange</span> 
+            <span class="word">diseases.</span> 
+        </div>
+        <div class="line">
+            <span class="word">Do</span> 
+            <span class="word">you,</span> 
+            <span class="word">my</span> 
+            <span class="word">poppet,</span> 
+        </div>
+        <div class="line">
+            <span class="word">feel</span> 
+            <span class="word">infirm?</span> 
+        </div>
+        <div class="line">
+            <span class="word">You</span> 
+            <span class="word">probably</span> 
+            <span class="word">contain</span> 
+            <span class="word">a</span> 
+        </div>
+        <div class="line">
+            <span class="word">germ.</span>
+        </div>
+    </div>
+
+    <script>
+        function stretchTentacle() {
+            let lines = document.querySelectorAll('.line');
+            let selectedGroups = [];
+
+            while (selectedGroups.length < 3) {
+                let index = Math.floor(Math.random() * (lines.length - 1)); // 上下のペアを作るので範囲を調整
+                if (!selectedGroups.includes(index)) {
+                    selectedGroups.push(index);
+                }
+            }
+
+            selectedGroups.forEach(index => {
+                let words1 = lines[index].querySelectorAll('.word');
+                let words2 = lines[index + 1]?.querySelectorAll('.word'); // 隣の行
+
+                if (words1.length > 0 && words2 && words2.length > 0) {
+                    let direction = Math.random() > 0.5 ? "left" : "right";
+
+                    if (direction === "left") {
+                        let leftWords = [words1[0], words2[0]];
+                        leftWords.forEach(word => word.classList.add('stretch-left'));
+
+                        setTimeout(() => {
+                            leftWords.forEach(word => {
+                                word.classList.remove('stretch-left');
+                                word.classList.add('shrink-left');
+                            });
+                        }, 3000);
+
+                        setTimeout(() => {
+                            leftWords.forEach(word => word.classList.remove('shrink-left'));
+                        }, 4000);
+
+                    } else {
+                        let rightWords = [words1[words1.length - 1], words2[words2.length - 1]];
+                        rightWords.forEach(word => word.classList.add('stretch-right'));
+
+                        setTimeout(() => {
+                            rightWords.forEach(word => {
+                                word.classList.remove('stretch-right');
+                                word.classList.add('shrink-right');
+                            });
+                        }, 3000);
+
+                        setTimeout(() => {
+                            rightWords.forEach(word => word.classList.remove('shrink-right'));
+                        }, 4000);
+                    }
+                }
+            });
+        }
+
+        // 10秒ごとにアニメーションを実行
+        setInterval(stretchTentacle, 6000);
+    </script>
+</body>
+</html>

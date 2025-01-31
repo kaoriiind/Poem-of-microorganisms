@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paramecium Poem</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: black;
+            color: white;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+        }
+        .poem-container {
+            position: relative;
+            width: 400px;
+            height: 600px;
+        }
+        .poem-line {
+            position: absolute;
+            white-space: nowrap;
+            transform-origin: center;
+        }
+        .letter {
+            display: inline-block;
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="poem-container">
+        <script>
+            const poemLines = [
+                "A mighty creature is the germ,",
+                "Though smaller than the pachyderm.",
+                "His customary dwelling place",
+                "Is deep within the human race.",
+                "His childish pride he often pleases",
+                "By giving people strange diseases.",
+                "Do you, my poppet, feel infirm?",
+                "You probably contain a germ."
+            ];
+            
+            const container = document.querySelector('.poem-container');
+            const ellipseWidth = 300;
+            const ellipseHeight = 450;
+            
+            poemLines.forEach((line, index) => {
+                const angle = (index / poemLines.length) * 2 * Math.PI;
+                const x = Math.cos(angle) * (ellipseWidth / 2) + ellipseWidth / 2;
+                const y = Math.sin(angle) * (ellipseHeight / 2) + ellipseHeight / 2;
+                
+                const lineElement = document.createElement('div');
+                lineElement.className = 'poem-line';
+                lineElement.style.left = `${x}px`;
+                lineElement.style.top = `${y}px`;
+                lineElement.style.transform = `rotate(${angle * (180 / Math.PI)}deg)`;
+                
+                [...line].forEach((char, charIndex) => {
+                    const span = document.createElement('span');
+                    span.className = 'letter';
+                    span.textContent = char;
+                    span.style.animation = `wiggle 10s infinite ${charIndex * 0.1}s alternate ease-in-out`;
+                    lineElement.appendChild(span);
+                });
+                
+                container.appendChild(lineElement);
+            });
+        </script>
+    </div>
+    
+    <style>
+        @keyframes wiggle {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+    </style>
+</body>
+</html>

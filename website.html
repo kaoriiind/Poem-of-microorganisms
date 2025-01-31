@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Variations</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+        .representation {
+            width: 80%;
+            height: 100%;
+            border: none;
+        }
+        .explanation {
+            width: 20%;
+            padding: 20px;
+            background: #f8f8f8;
+            overflow-y: auto;
+        }
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <iframe class="representation" id="iframe" src="1A_Ecoli.html"></iframe>
+
+    <div class="explanation">
+        <h2 id="poem-title">The Germ - Ogden Nash</h2>
+        <h3 id="variation-title">Move like a Microbe - E. Coli (1A)</h3>
+        <p id="description">
+            This variation simulates the motion of E. coli, with erratic text movement reflecting microbial randomness.
+        </p>
+
+        <div class="nav-buttons">
+            <button onclick="prev()">&#8592; Previous</button>
+            <button onclick="next()">Next &#8594;</button>
+        </div>
+    </div>
+
+    <script>
+        const variations = [
+            { file: "1A_Ecoli.html", title: "Move like a Microbe - E. Coli (1A)", desc: "This variation simulates the motion of E. coli." },
+            { file: "1B_Paramecium.html", title: "Swimming Paramecium (1B)", desc: "Text arranged in an elliptical path, mimicking paramecium movement." },
+            { file: "1C_ameba2.html", title: "Amoeba Expansion (1C)", desc: "Words expand and contract, resembling amoeba-like stretching." },
+            { file: "1D_Euglena.html", title: "Euglena Typography (1D)", desc: "Spindle-like shape to mimic Euglena." },
+            { file: "2A_water.html", title: "Floating Water Letters (2A)", desc: "Letters drift like particles in water." },
+            { file: "2B_lung.html", title: "Inside the Lung (2B)", desc: "Poem arranged in a circular lung structure." },
+            { file: "2C_magma.html", title: "Magma Typography (2C)", desc: "Letters distort like molten rock." },
+            { file: "2D_geography.html", title: "Typography Layers (2D)", desc: "Text arranged in stacked typography." },
+            { file: "3A_sword.html", title: "Sword Poem (3A)", desc: "Text forms the shape of a sword." },
+            { file: "3B_colorChange.html", title: "Color Changing Poem (3B)", desc: "Words shift color based on movement." },
+            { file: "3C_zanzou.html", title: "Afterimage Effect (3C)", desc: "Letters leave behind ghostly afterimages." },
+            { file: "3D_dense.html", title: "Dense Typography (3D)", desc: "Compact and condensed text layout." },
+            { file: "4A_mouser hover.html", title: "Mouse Hover Expansion (4A)", desc: "Words expand upon hovering." },
+            { file: "4B_mouseClick.html", title: "Mouse Click Distortion (4B)", desc: "Text moves upon clicking anywhere." },
+            { file: "4C_mouseGather.html", title: "Mouse Gather Effect (4C)", desc: "Words follow the mouse pointer." },
+            { file: "4D_mouseDrag.html", title: "Mouse Drag Reveal (4D)", desc: "Dragging reveals words gradually." },
+            { file: "5A_reproduction.html", title: "Reproducing Text (5A)", desc: "Words multiply in a tree-like pattern." },
+            { file: "5B_lifespan.html", title: "Lifespan of Microbes (5B)", desc: "Text size changes to represent different microbial lifespans." },
+            { file: "5C_lifeLength.html", title: "Microbial Time Scale (5C)", desc: "Word sizes represent duration of microbial life." },
+            { file: "5D_separating.html", title: "Separating Words (5D)", desc: "Poem fragments move apart in stages." }
+        ];
+
+        let currentIndex = 0;
+
+        function updateContent() {
+            document.getElementById("iframe").src = variations[currentIndex].file;
+            document.getElementById("variation-title").textContent = variations[currentIndex].title;
+            document.getElementById("description").textContent = variations[currentIndex].desc;
+        }
+
+        function next() {
+            currentIndex = (currentIndex + 1) % variations.length;
+            updateContent();
+        }
+
+        function prev() {
+            currentIndex = (currentIndex - 1 + variations.length) % variations.length;
+            updateContent();
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magma Typography</title>
+    <style>
+        body {
+            background-color: white;
+            color: black;
+            font-family: "Courier New", monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            overflow: hidden;
+            margin: 0;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-auto-rows: minmax(120px, auto);
+            gap: 10px;
+            width: 80vw;
+            height: 80vh;
+        }
+
+        .text-block {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            font-size: 3vw;
+            font-weight: bold;
+            line-height: 1.0;
+            letter-spacing: -0.02em;
+            white-space: pre-line; /* 強制改行 */
+            transition: transform 0.5s ease-in-out, line-height 0.5s ease-in-out, letter-spacing 0.5s ease-in-out;
+        }
+
+        /* ところどころ横に引き延ばす */
+        .distort-1 { transform: scaleX(1.3); }
+        .distort-2 { transform: scaleX(1.5); }
+        .distort-3 { transform: scaleX(1.2); }
+
+        .expand {
+            transform: scale(1.2);
+            line-height: 0.8;
+            letter-spacing: -0.05em;
+        }
+    </style>
+</head>
+<body>
+
+<div class="grid">
+    <div class="text-block distort-1">A mighty  <br> creature  <br> is the germ,</div>
+    <div class="text-block">Though smaller  <br> than the  <br> pachyderm.</div>
+    <div class="text-block distort-2">His  <br> customary  <br> dwelling  <br> place</div>
+    <div class="text-block">Is deep   <br> within the  <br> human race.</div>
+    <div class="text-block distort-3">His childish  <br> pride  <br> he often  <br> pleases</div>
+    <div class="text-block">By giving  <br> people  <br> strange  <br> diseases.</div>
+    <div class="text-block distort-1">Do you,  <br>my poppet,  <br> feel infirm?</div>
+    <div class="text-block">You probably  <br> contain  <br> a germ.</div>
+</div>
+
+<script>
+    function animateText() {
+        const blocks = document.querySelectorAll(".text-block");
+
+        function randomExpand() {
+            // すべてのブロックをリセット
+            blocks.forEach(block => {
+                block.classList.remove("expand");
+            });
+
+            // ランダムなブロックを選択
+            const randomIndex = Math.floor(Math.random() * blocks.length);
+            const selectedBlock = blocks[randomIndex];
+
+            // 拡大アニメーションを適用
+            selectedBlock.classList.add("expand");
+
+            // ランダムな時間で次の拡大を設定
+            const randomTime = Math.random() * 500 + 700; // 1秒〜4秒
+            setTimeout(randomExpand, randomTime);
+        }
+
+        randomExpand();
+    }
+
+    window.onload = animateText;
+</script>
+
+</body>
+</html>
