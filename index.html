@@ -3,94 +3,151 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Poem Variations</title>
+    <title>Poem Variations Overview</title>
     <style>
         body {
-            display: flex;
-            height: 100vh;
-            margin: 0;
             font-family: Arial, sans-serif;
-        }
-        .representation {
-            width: 80%;
-            height: 100%;
-            border: none;
-        }
-        .explanation {
-            width: 20%;
+            margin: 0;
             padding: 20px;
-            background: #f8f8f8;
-            overflow-y: auto;
+            background-color: #f5f5f5;
+            text-align: center;
         }
-        .nav-buttons {
-            position: fixed;
-            right: 20px;
-            bottom: 20px;
-            display: flex;
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
-            
+            max-width: 90vw;
+            margin: 0 auto;
+        }
+
+        .grid-title {
+            grid-column: span 4;
+            font-size: 1.5em;
+            font-weight: bold;
+            margin-top: 20px;
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+
+        .grid-item {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1;
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.2s, opacity 0.2s;
+            cursor: pointer;
+        }
+
+        .grid-item iframe {
+            width: 100%;
+            height: 100%;
+            /* transform: scale(0.5);  */
+            transform-origin: top left;
+            border: none;
+            pointer-events: none;
+        }
+
+        .grid-item:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .grid-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            border-radius: 5px;
         }
     </style>
 </head>
 <body>
-    <iframe class="representation" id="iframe" src="1A_Ecoli.html"></iframe>
 
-    <div class="explanation">
-        <h2 id="poem-title">The Germ - Ogden Nash</h2>
-        <h3 id="variation-title">Move like a Microbe </h3>
-        <h4 id="title">1A. Encherichia Coil - Run and Tamble</h4>
-        <p id="description">
-            This variation mimics the behavior of Escherichia coli, which moves forward as if running and then rotates to change direction.
-        </p>
+    <h1>The Germ - Ogden Nash</h1>
+    <p>This page showcases various typographic interpretations of a poem, "The Germ," <br> reflecting the movements and environments of microorganisms. <br> Click each box to view details.</p>
 
-        <div class="nav-buttons">
-            <button onclick="prev()">&#8592; Previous</button>
-            <button onclick="next()">Next &#8594;</button>
-        </div>
-    </div>
+    <div class="grid-container"></div>
 
     <script>
-        const variations = [
-            { file: "1A_Ecoli.html", val:"Move Like a Microbe",title: "1A. Encherichia Coil - Run and Tamble", desc: "This variation mimics the behavior of Escherichia coli, which moves forward as if running and then rotates to change direction." },
-            { file: "1B_Paramecium.html", val:"Move Like a Microbe", title: "1B. Swimming Paramecium", desc: "Text and blank spaces are used to represent the shape of Paramecium and the undulating motion created by its cilia." },
-            { file: "1C_ameba2.html", val:"Move Like a Microbe", title: "1C. Amoeba Expansion", desc: "Words expand and contract, resembling amoeba-like stretching." },
-            { file: "1D_Euglena.html", val:"Move Like a Microbe", title: "1D. Euglena Typography", desc: "This variation expresses Euglena’s unique movement, where it first expands and then elongates." },
-            { file: "2A_water.html", val:"Dwelling Place",title: "2A. Floating in Water", desc: "A representation of microorganisms floating on the surface of the water." },
-            { file: "2B_lung.html", val:"Dwelling Place",title: "2B. Inside the Lung", desc: "Depicts microorganisms living inside the lungs of organisms, structured with elements representing both the lungs and the microbes." },
-            { file: "2C_magma.html",val:"Dwelling Place", title: "2C. Within the Scorching Magma", desc: "Each line of text forms rocks floating on magma. In 1982, hyperthermophilic bacteria were discovered in a region where lava and seawater mixed near Vulcano Island, Italy. These microorganisms can survive even in scorching magma." },
-            { file: "2D_geography.html", val:"Dwelling Place",title: "2D. A 100M Years Beneath the Layers", desc: "Microorganisms have been found in sediment samples extracted from strata dating back 100 million years. Some microorganisms survive by remaining dormant and enduring between layers without movement." },
-            { file: "3A_sword.html", val:"Small But Strong",title: "3A. Sword Poem", desc: "A single microorganism is minuscule, but in vast numbers, they can become a lethal threat to other organisms.Text forms the shape of a sword." },
-            { file: "3B_colorChange.html", val:"Small But Strong",title: "3B. The Assault of the Tiny Ones", desc: "Invisible microorganisms can cause bodily discomfort. Although microbes themselves remain unseen, their effects—like changes in body conditions—become visible, much like the shift in color to gray." },
-            { file: "3C_zanzou.html", val:"Small But Strong",title: "3C. Lingering Shadows", desc: "Microorganisms are tiny yet hold immense influence over living organisms. This concept is visualized by creating afterimages when they appear." },
-            { file: "3D_dense.html", val:"Small But Strong",title: "3D. A Crowded Existence", desc: "While individual microorganisms are invisible to the naked eye, their colonies can sometimes be seen. When they reach a visible density, it often indicates that environmental conditions have surpassed a critical threshold, warranting caution." },
-            { file: "4A_mouser hover.html", val:"Sensory System of Microbes in Webpage",title: "4A. What Happens When You Touch? - mouse hover", desc: "Some microorganisms react when touched by expanding parts of their bodies or moving. This variation represents such behavior, with words gradually enlarging when hovered over with the mouse." },
-            { file: "4B_mouseClick.html", val:"Sensory System of Microbes in Webpage",title: "4B. Some Drawn Closer, Others Pushed Away - mouse click", desc: "Some photosynthetic microorganisms exhibit phototaxis, moving toward light sources. However, excessively strong light can be harmful to them, causing them to move away. In this variation, clicking a location simulates the presence of light, with some microorganisms being drawn to it and others repelled, representing their phototactic behavior." },
-            { file: "4C_mouseGather.html", val:"Sensory System of Microbes in Webpage",title: "4C. Following You - mouse XY", desc: "Words follow the mouse pointer." },
-            { file: "4D_mouseDrag.html", val:"Sensory System of Microbes in Webpage",title: "4D. What Lies Unseen - mouse click & drag", desc: "Although we are often unaware of microorganisms, they exist everywhere. This variation expresses their omnipresence by making lines of poetry about microbes appear one by one when the screen is clicked and dragged" },
-            { file: "5A_reproduction.html", val:"Lifespan of Microbes",title: "5A. The Cycle of Cell Division", desc: "Different types of microorganisms divide at different rates. In this variation, different lines symbolize different microorganisms, illustrating their distinct division cycles as they split at varying times." },
-            { file: "5B_lifespan.html", val:"Lifespan of Microbes",title: "5B. Microbial Chronicles", desc: "Technically, microorganisms do not have a defined lifespan. Instead, the time it takes for one to divide into two is considered a 'generation time'. Some microbes discovered in 100-million-year-old sediments may have lacked even the energy to divide, potentially remaining in a single generation for an extended period. This variation represents different microorganisms' generation times through the varying lengths of text along the x-axis." },
-            { file: "5C_lifeLength.html", val:"Lifespan of Microbes",title: "5C. Diverse Lifespans", desc: "Our existence is built upon life inherited continuously from unicellular organisms. This variation expresses the continuity of life’s history by manipulating font density, position, and size to create a three-dimensional form." },
-            { file: "5D_separating.html", val:"Lifespan of Microbes",title: "5D. Divide, Divide, Divide", desc: "The process of microbial division is represented by a poem that starts as a single unit and gradually splits apart into separate components." }
+        const categories = [
+            { title: "Theme1: Move Like a Microbe", items: [
+                { file: "1A_Ecoli.html", title: "1A. Encherichia Coil - Run and Tamble" },
+                { file: "1B_Paramecium.html", title: "1B. Swimming Paramecium" },
+                { file: "1C_ameba2.html", title: "1C. Amoeba Expansion" },
+                { file: "1D_Euglena.html", title: "1D. Euglena Typography" }
+            ]},
+            { title: "Theme2: Dwelling Place", items: [
+                { file: "2A_water.html", title: "2A. Floating in Water" },
+                { file: "2B_lung.html", title: "2B. Inside the Lung" },
+                { file: "2C_magma.html", title: "2C. Within the Scorching Magma" },
+                { file: "2D_geography.html", title: "2D. A 100M Years Beneath the Layers" }
+            ]},
+            { title: "Theme3: Small But Strong", items: [
+                { file: "3A_sword.html", title: "3A. Sword Poem" },
+                { file: "3B_colorChange.html", title: "3B. The Assault of the Tiny Ones" },
+                { file: "3C_zanzou.html", title: "3C. Lingering Shadows" },
+                { file: "3D_dense.html", title: "3D. A Crowded Existence" }
+            ]},
+            { title: "Theme4: Sensory System of Microbes in Webpage - Interactive", items: [
+                { file: "4A_mouser hover.html", title: "4A. What Happens When You Touch? - mouse hover" },
+                { file: "4B_mouseClick.html", title: "4B. Some Drawn Closer, Others Pushed Away - mouse click" },
+                { file: "4C_mouseGather.html", title: "4C. Following You - mouse XY" },
+                { file: "4D_mouseDrag.html", title: "4D. What Lies Unseen - mouse click & drag" }
+            ]},
+            { title: "Theme5: Lifespan of Microbes", items: [
+                { file: "5A_reproduction.html", title: "5A. The Cycle of Cell Division" },
+                { file: "5B_lifespan.html", title: "5B. Microbial Chronicles" },
+                { file: "5C_lifeLength.html", title: "5C. Diverse Lifespans" },
+                { file: "5D_separating.html", title: "5D. Divide, Divide, Divide" }
+            ]}
         ];
 
-        let currentIndex = 0;
+        const container = document.querySelector('.grid-container');
 
-        function updateContent() {
-            document.getElementById("iframe").src = variations[currentIndex].file;
-            document.getElementById("variation-title").textContent = variations[currentIndex].val;
-            document.getElementById("title").textContent = variations[currentIndex].title;
-            document.getElementById("description").textContent = variations[currentIndex].desc;
-        }
+        categories.forEach(category => {
+            // タイトルを追加
+            const titleDiv = document.createElement('div');
+            titleDiv.classList.add('grid-title');
+            titleDiv.textContent = category.title;
+            container.appendChild(titleDiv);
 
-        function next() {
-            currentIndex = (currentIndex + 1) % variations.length;
-            updateContent();
-        }
+            // 各バリエーションを追加
+            category.items.forEach(variation => {
+                const div = document.createElement('div');
+                div.classList.add('grid-item');
+                div.setAttribute('data-title', variation.title);
 
-        function prev() {
-            currentIndex = (currentIndex - 1 + variations.length) % variations.length;
-            updateContent();
-        }
+                const iframe = document.createElement('iframe');
+                iframe.src = `variations/${variation.file}`;
+
+                div.appendChild(iframe);
+                div.addEventListener('click', () => {
+                    window.location.href = `details.html?file=${variation.file}&title=${encodeURIComponent(variation.title)}`;
+                });
+
+                container.appendChild(div);
+            });
+        });
     </script>
+
 </body>
 </html>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Variation</title>
+    <style>
+        body {
+            display: flex;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        /* 左側のコンテンツ */
+        .representation {
+            width: 80%;
+            height: 100%;
+            border: none;
+            
+        }
+
+        /* 右側の説明エリア */
+        .explanation {
+            width: 20%;
+            padding: 20px;
+            background: #f8f8f8;
+            overflow-y: auto;
+            text-align: left;
+        }
+
+        .explanation h1 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+
+        .explanation h2 {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .explanation h3 {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .explanation p {
+            font-size: 0.9em;
+            line-height: 1.4;
+        }
+
+        /* 固定ボタンのスタイル */
+        .nav-buttons {
+            position: fixed;
+            right: 20px;
+            bottom: 20px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .nav-buttons button {
+            background: #e0e0e0;
+            color: black;
+            border: 1px solid #999;
+            padding: 5px 15px;
+            cursor: pointer;
+           height: 25px;
+            transition: background 0.3s;
+        }
+
+        .nav-buttons button:hover {
+            background: #d6d6d6;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe class="representation" id="iframe"></iframe>
+
+    <div class="explanation">
+        <h1>The Germ - Ogden Nash</h1>
+        <h2 id="variation-category"></h2>
+        <h3 id="variation-title"></h3>
+        <p id="description"></p>
+    </div>
+
+    <div class="nav-buttons">
+        <button onclick="window.location.href='index.html'">← Overview</button>
+        <button onclick="prev()">← Previous</button>
+        <button onclick="next()">Next →</button>
+    </div>
+
+    <script>
+         const variations = [
+            { file: "1A_Ecoli.html", val:"Move Like a Microbe",title: "1A. Encherichia Coil - Run and Tamble", desc: "This variation mimics the behavior of Escherichia coli, which moves forward as if running and then rotates to change direction." },
+            { file: "1B_Paramecium.html", val:"Move Like a Microbe", title: "1B. Swimming Paramecium", desc: "Text and blank spaces are used to represent the shape of Paramecium and the undulating motion created by its cilia." },
+            { file: "1C_ameba2.html", val:"Move Like a Microbe", title: "1C. Amoeba Expansion", desc: "Words expand and contract, resembling amoeba-like stretching." },
+            { file: "1D_Euglena.html", val:"Move Like a Microbe", title: "1D. Euglena Typography", desc: "This variation expresses Euglena’s unique movement, where it first expands and then elongates." },
+            { file: "2A_water.html", val:"Dwelling Place",title: "2A. Floating in Water", desc: "A representation of microorganisms floating on the surface of the water." },
+            { file: "2B_lung.html", val:"Dwelling Place",title: "2B. Inside the Lung", desc: "Depicts microorganisms living inside the lungs of organisms, structured with elements representing both the lungs and the microbes." },
+            { file: "2C_magma.html",val:"Dwelling Place", title: "2C. Within the Scorching Magma", desc: "Each line of text forms rocks floating on magma. In 1982, hyperthermophilic bacteria were discovered in a region where lava and seawater mixed near Vulcano Island, Italy. These microorganisms can survive even in scorching magma." },
+            { file: "2D_geography.html", val:"Dwelling Place",title: "2D. A 100M Years Beneath the Layers", desc: "Microorganisms have been found in sediment samples extracted from strata dating back 100 million years. Some microorganisms survive by remaining dormant and enduring between layers without movement." },
+            { file: "3A_sword.html", val:"Small But Strong",title: "3A. Sword Poem", desc: "A single microorganism is minuscule, but in vast numbers, they can become a lethal threat to other organisms.Text forms the shape of a sword." },
+            { file: "3B_colorChange.html", val:"Small But Strong",title: "3B. The Assault of the Tiny Ones", desc: "Invisible microorganisms can cause bodily discomfort. Although microbes themselves remain unseen, their effects—like changes in body conditions—become visible, much like the shift in color to gray." },
+            { file: "3C_zanzou.html", val:"Small But Strong",title: "3C. Lingering Shadows", desc: "Microorganisms are tiny yet hold immense influence over living organisms. This concept is visualized by creating afterimages when they appear." },
+            { file: "3D_dense.html", val:"Small But Strong",title: "3D. A Crowded Existence", desc: "While individual microorganisms are invisible to the naked eye, their colonies can sometimes be seen. When they reach a visible density, it often indicates that environmental conditions have surpassed a critical threshold, warranting caution." },
+            { file: "4A_mouser hover.html", val:"Sensory System of Microbes in Webpage",title: "4A. What Happens When You Touch? - mouse hover", desc: "Some microorganisms react when touched by expanding parts of their bodies or moving. This variation represents such behavior, with words gradually enlarging when hovered over with the mouse." },
+            { file: "4B_mouseClick.html", val:"Sensory System of Microbes in Webpage",title: "4B. Some Drawn Closer, Others Pushed Away - mouse click", desc: "Some photosynthetic microorganisms exhibit phototaxis, moving toward light sources. However, excessively strong light can be harmful to them, causing them to move away. In this variation, clicking a location simulates the presence of light, with some microorganisms being drawn to it and others repelled, representing their phototactic behavior." },
+            { file: "4C_mouseGather.html", val:"Sensory System of Microbes in Webpage",title: "4C. Following You - mouse XY", desc: "Words follow the mouse pointer." },
+            { file: "4D_mouseDrag.html", val:"Sensory System of Microbes in Webpage",title: "4D. What Lies Unseen - mouse click & drag", desc: "Although we are often unaware of microorganisms, they exist everywhere. This variation expresses their omnipresence by making lines of poetry about microbes appear one by one when the screen is clicked and dragged" },
+            { file: "5A_reproduction.html", val:"Lifespan of Microbes",title: "5A. The Cycle of Cell Division", desc: "Different types of microorganisms divide at different rates. In this variation, different lines symbolize different microorganisms, illustrating their distinct division cycles as they split at varying times." },
+            { file: "5B_lifespan.html", val:"Lifespan of Microbes",title: "5B. Microbial Chronicles", desc: "Technically, microorganisms do not have a defined lifespan. Instead, the time it takes for one to divide into two is considered a 'generation time'. Some microbes discovered in 100-million-year-old sediments may have lacked even the energy to divide, potentially remaining in a single generation for an extended period. This variation represents different microorganisms' generation times through the varying lengths of text along the x-axis." },
+            { file: "5C_lifeLength.html", val:"Lifespan of Microbes",title: "5C. Diverse Lifespans", desc: "Our existence is built upon life inherited continuously from unicellular organisms. This variation expresses the continuity of life’s history by manipulating font density, position, and size to create a three-dimensional form." },
+            { file: "5D_separating.html", val:"Lifespan of Microbes",title: "5D. Divide, Divide, Divide", desc: "The process of microbial division is represented by a poem that starts as a single unit and gradually splits apart into separate components." }
+        ];
+
+        const params = new URLSearchParams(window.location.search);
+        const file = params.get('file');
+
+        let currentIndex = variations.findIndex(variation => variation.file === file);
+
+        if (currentIndex !== -1) {
+            document.getElementById("iframe").src = `variations/${variations[currentIndex].file}`;
+            document.getElementById("variation-category").textContent = variations[currentIndex].val;
+            document.getElementById("variation-title").textContent = variations[currentIndex].title;
+            document.getElementById("description").textContent = variations[currentIndex].desc;
+        } else {
+            document.getElementById("variation-category").textContent = "Error";
+            document.getElementById("variation-title").textContent = "No variation selected.";
+            document.getElementById("description").textContent = "Please select a variation from the overview page.";
+        }
+
+        function prev() {
+            if (currentIndex > 0) {
+                window.location.href = `details.html?file=${variations[currentIndex - 1].file}`;
+            }
+        }
+
+        function next() {
+            if (currentIndex < variations.length - 1) {
+                window.location.href = `details.html?file=${variations[currentIndex + 1].file}`;
+            }
+        }
+    </script>
+
+</body>
+</html>
