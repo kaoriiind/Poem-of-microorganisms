@@ -6,45 +6,53 @@
     <title>Poem Sword Shape</title>
     <style>
         body {
-            background-color: black;
-            color: white;
-            font-family: "Courier New", monospace;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            text-align: center;
-            white-space: pre;
-            font-size: 12px;
-            line-height: 1;
-        }
-        .sword {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-        .blade {
-            font-size: 14px;
-            letter-spacing: 6px;
-        }
-        .guard {
-            font-size: 18px;
-            font-weight: bold;
-            letter-spacing: 10px;
-        }
-        .grip-container {
-            display: flex;
-            justify-content: center;
-            gap: 20px; /* Space between the two vertical grip parts */
-        }
-        .grip {
-            font-size: 1.2em; /* Increases grip font size */
-            font-weight: bold;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            letter-spacing: 4px;
-        }
+    background-color: black;
+    color: white;
+    font-family: "Courier New", monospace;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    white-space: pre;
+    font-size: 10px; /* 全体を少し縮小 */
+    line-height: 0.9; /* 行間を縮小 */
+}
+
+.sword {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.blade {
+    font-size: 12px; /* 縮小 */
+    letter-spacing: 4px; /* 文字間も調整 */
+    line-height: 0.9; /* 行間を縮める */
+}
+
+.guard {
+    font-size: 14px; /* 縮小 */
+    font-weight: bold;
+    letter-spacing: 8px;
+}
+
+.grip-container {
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* グリップ間の隙間を狭める */
+}
+
+.grip {
+    font-size: 1em; /* 縮小 */
+    font-weight: bold;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    letter-spacing: 3px;
+    line-height: 0.9; /* 行間を縮める */
+}
+
     </style>
 </head>
 <body>
