@@ -10,14 +10,14 @@
             font-family: sans-serif;
             color: black;
             margin: 20px;
-            overflow: hidden; /* スクロールを防ぐ */
+            overflow: hidden; 
             position: relative;
         }
         .line {
             position: absolute;
             white-space: nowrap;
-            font-size: 12px; /* フォントサイズを小さく */
-            line-height: 20px; /* 行間を広げる */
+            font-size: 12px; 
+            line-height: 20px; 
         }
     </style>
 </head>
@@ -37,10 +37,10 @@
         let container = document.body;
         let initialX = 20;
         let initialY = 20;
-        let maxWidth = window.innerWidth - 100; // 横方向の制限
-        let maxGenerations = 10; // 分裂回数の最大値
-        let offsetX = 80; // 横方向のオフセット
-        let offsetY = 15; // 縦方向のオフセット（木の枝を広げるため）
+        let maxWidth = window.innerWidth - 100; 
+        let maxGenerations = 10; 
+        let offsetX = 80; 
+        let offsetY = 15; 
 
         function createLine(text, x, y, opacity, delay, generation = 0, direction = "root") {
             let line = document.createElement("div");
@@ -50,7 +50,7 @@
             line.style.opacity = opacity;
             line.classList.add("line");
 
-            // オリジナル（最初の分裂前）は太字にする
+            
             if (generation === 0) {
                 line.style.fontWeight = "bold";
             }
@@ -58,18 +58,18 @@
             container.appendChild(line);
 
             setTimeout(() => {
-                let textWidth = line.offsetWidth + 10; // 文字の長さ + 10px を分裂開始位置に適用
+                let textWidth = line.offsetWidth + 10; 
 
                 if (generation < maxGenerations) {
                     let newOpacity = opacity - 0.2;
                     let newDelay = delay * 2;
 
-                    // 1回目の分裂は2つ (上と下)
+                    
                     if (generation === 0) {
                         createLine(text, x + textWidth, y - offsetY, newOpacity, newDelay, generation + 1, "up");
                         createLine(text, x + textWidth, y + offsetY, newOpacity, newDelay, generation + 1, "down");
                     } else {
-                        // 2回目以降の分裂：それぞれの分裂が新しい分裂を2つ作る（上下）
+                        
                         if (direction === "up") {
                             createLine(text, x + textWidth, y - offsetY * generation, newOpacity, newDelay, generation + 1, "up");
                             createLine(text, x + textWidth, y, newOpacity, newDelay, generation + 1, "down");
@@ -83,8 +83,8 @@
         }
 
         poemLines.forEach((line, index) => {
-            let delay = 2000 * Math.pow(2, index); // n行目は 2^n 秒ごとに分裂
-            createLine(line, initialX, initialY + index * 90, 1, delay); // 行間をさらに広げる
+            let delay = 2000 * Math.pow(2, index); 
+            createLine(line, initialX, initialY + index * 90, 1, delay); 
         });
     </script>
 </body>

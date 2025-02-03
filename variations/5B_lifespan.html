@@ -54,15 +54,15 @@
             "You probably contain a germ."
         ];
     
-        const lifespans = [ // Approximate lifespan mapping in years
-            { name: "Deinococcus radiodurans", lifespan: 5000 }, // Ancient Bacteria
+        const lifespans = [ 
+            { name: "Deinococcus radiodurans", lifespan: 5000 }, 
             { name: "Methuselah yeast", lifespan: 1000 },
             { name: "Streptomyces", lifespan: 300 },
             { name: "Bacillus subtilis", lifespan: 150 },
             { name: "E. coli", lifespan: 24 },
             { name: "Lactobacillus", lifespan: 12 },
             { name: "Saccharomyces cerevisiae", lifespan: 2 },
-            { name: "Influenza Virus", lifespan: 0.1 } // Shortest lifespan
+            { name: "Influenza Virus", lifespan: 0.1 } 
         ];
     
         const container = document.getElementById("poem");
@@ -77,17 +77,17 @@
             lineDiv.classList.add("line");
             lineDiv.textContent = line;
     
-            // 各行を順番に配置（Y座標を固定）
-            const lineHeight = 12; // 行間の高さ（適宜調整）
+            
+            const lineHeight = 12; 
             lineDiv.style.top = `${index * lineHeight + 10}%`;
-            lineDiv.style.left = "10%"; // 左揃え（中央にしたい場合は50% & transform: translateX(-50%)）
+            lineDiv.style.left = "10%"; 
     
-            // フォントの大きさやカーニングを調整
+            
             lineDiv.style.fontSize = fontSize;
             lineDiv.style.letterSpacing = letterSpacing;
             lineDiv.style.transform = `scaleX(${stretchFactor})`;
     
-            // 各行の表示を遅らせる（アニメーションのディレイ）
+           
             lineDiv.style.animation = `fadeIn 2s ease-in-out ${index * 1}s forwards`;
     
             container.appendChild(lineDiv);
