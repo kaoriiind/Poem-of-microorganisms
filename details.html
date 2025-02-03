@@ -12,7 +12,7 @@
             font-family: Arial, sans-serif;
         }
 
-        /* 左側のコンテンツ */
+        
         .representation {
             width: 80%;
             height: 100%;
@@ -20,7 +20,7 @@
             
         }
 
-        /* 右側の説明エリア */
+        
         .explanation {
             width: 20%;
             padding: 20px;
@@ -49,7 +49,7 @@
             line-height: 1.4;
         }
 
-        /* 固定ボタンのスタイル */
+        
         .nav-buttons {
             position: fixed;
             right: 20px;
@@ -72,22 +72,21 @@
             background: #d6d6d6;
         }
 
-        /* 📱 スマホ & タブレット（画面幅768px以下） */
-/* 📱 スマホ（768px以下）の右端見切れ対策 */
+        
 @media (max-width: 768px) {
     body {
-        display: block; /* 🔹 画面全体でスクロール可能に */
+        display: block; 
         margin: 0;
         padding: 0;
-        overflow-x: hidden; /* 🔹 横スクロールを防ぐ */
+        overflow-x: hidden; /
     }
 
     .representation {
-        width: 100vw; /* 🔹 左右のpaddingを考慮 */
-        height: 80dvh; /* 🔹 絵の縦を長くする */
-        object-fit: contain; /* 🔹 はみ出さずに表示 */
-        margin-top: 10px; /* 🔹 上のマージン 50px */
-        padding: 0 10px; /* 🔹 左右のパディング 10px */
+        width: 100vw; 
+        height: 80dvh; 
+        object-fit: contain;
+        margin-top: 10px; 
+        padding: 0 10px; 
     }
 
     .explanation {
@@ -97,10 +96,10 @@
         text-align: left;
         margin-left: 10px;
         margin-right: 10px;
-        margin-bottom: 100px; /* 🔹 一番下のマージン 100px */
+        margin-bottom: 100px; 
     }
 
-    /* 🔹 h1, h2, h3 の行間を狭くする */
+    
     h1, h2, h3 {
         line-height: 0.9;
         margin-bottom: 5px;
