@@ -119,17 +119,17 @@
                 randomElement.classList.remove("paused");
                 randomElement.classList.add("rotating");
                 setTimeout(() => {
-                        // 1秒間停止後に元の動きを再開
+                        // 
                         randomElement.classList.add("paused");
 
                         setTimeout(() => {
                             randomElement.classList.remove("rotating", "paused");
                             randomElement.style.animation = originalAnimation;
-                        }, 1000); // 回転後の1秒停止
-                    }, 1000); // 1秒間回転
-                }, 1000); // 回転前の1秒停止
+                        }, 1000); // 
+                    }, 1000); // 
+                }, 1000); // 
             }
-        }, 1000); // 1秒ごとに回転発生
+        }, 1000); // 
 
        
 

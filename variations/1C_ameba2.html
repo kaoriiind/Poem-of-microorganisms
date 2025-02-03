@@ -42,7 +42,7 @@
             transition: transform 1s ease-in-out;
         }
 
-        /* 伸びる時のアニメーション */
+        
         .stretch-left {
             transform-origin: right;
             transform: scaleX(3.5);
@@ -53,7 +53,7 @@
             transform: scaleX(3.5);
         }
 
-        /* 戻る時のアニメーション */
+        
         .shrink-left {
             transform-origin: right;
             transform: scaleX(1);
@@ -120,12 +120,12 @@
     </div>
 
     <script>
-        let currentPosition = 0; // 現在の移動位置
+        let currentPosition = 0; 
 
         function stretchTentacle() {
             let lines = document.querySelectorAll('.line');
             let poemContainer = document.querySelector('.poem-container');
-            let selectedIndex = Math.floor(Math.random() * (lines.length - 2)); // 3行をグループ化
+            let selectedIndex = Math.floor(Math.random() * (lines.length - 2)); 
             let words1 = lines[selectedIndex].querySelectorAll('.word');
             let words2 = lines[selectedIndex + 1]?.querySelectorAll('.word');
             let words3 = lines[selectedIndex + 2]?.querySelectorAll('.word');
@@ -133,7 +133,7 @@
             if (!words3 || words1.length === 0 || words2.length === 0 || words3.length === 0) return;
 
             let direction = Math.random() > 0.5 ? "left" : "right";
-            let moveAmount = 100; // px 単位で移動距離を調整
+            let moveAmount = 100; 
 
             if (direction === "left") {
                 let leftWords = [words1[0], words2[0], words3[0]];
@@ -145,10 +145,10 @@
                         word.classList.add('shrink-left');
                     });
 
-                    currentPosition -= moveAmount; // **逆方向に移動**
+                    currentPosition -= moveAmount; 
                     poemContainer.style.transition = "transform 1s ease-in-out";
                     poemContainer.style.transform = `translateX(${currentPosition}px)`;
-                }, 2000); // 停止時間を 2秒 に変更
+                }, 2000); 
 
                 setTimeout(() => {
                     leftWords.forEach(word => word.classList.remove('shrink-left'));
@@ -164,10 +164,10 @@
                         word.classList.add('shrink-right');
                     });
 
-                    currentPosition += moveAmount; // **逆方向に移動**
+                    currentPosition += moveAmount; 
                     poemContainer.style.transition = "transform 1s ease-in-out";
                     poemContainer.style.transform = `translateX(${currentPosition}px)`;
-                }, 2000); // 停止時間を 2秒 に変更
+                }, 2000); 
 
                 setTimeout(() => {
                     rightWords.forEach(word => word.classList.remove('shrink-right'));
@@ -175,10 +175,10 @@
             }
         }
 
-        // 5秒ごとにアニメーションを実行
+        
         setTimeout(() => {
     stretchTentacle();
-    setInterval(stretchTentacle, 5000); // その後は 5 秒ごとに実行
+    setInterval(stretchTentacle, 5000); 
 }, 200);
     </script>
 </body>

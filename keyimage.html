@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Poem Variations Overview</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+            text-align: center;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2em;
+            max-width: 800px;
+            margin: 0 auto 30px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            grid-template-rows: repeat(5, 1fr);
+            gap: 10px;
+            max-width: 90vw;
+            margin: 0 auto;
+        }
+
+        .grid-item {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 1; /* 正方形 */
+            overflow: hidden;
+            border-radius: 10px;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .grid-item iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+            pointer-events: none; /* クリックできないようにする */
+        }
+
+        .grid-item:hover {
+            opacity: 0.8;
+            transform: scale(1.05);
+        }
+
+        .grid-item::after {
+            content: attr(data-title);
+            position: absolute;
+            bottom: 5px;
+            left: 50%;
+            width: 100%; 
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 5px 10px;
+            font-size: 0.9em;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>The Germ - Ogden Nash</h1>
+    <p>This page showcases various typographic interpretations of "The Germ," reflecting the movements and environments of microorganisms.</p>
+
+    <div class="grid-container">
+        <!-- JavaScriptで動的に埋める -->
+    </div>
+
+    <script>
+        const variations = [
+            { file: "1A_Ecoli.html", title: "E. coli - Run & Tumble" },
+            { file: "1B_Paramecium.html", title: "Paramecium Swimming" },
+            { file: "1C_ameba2.html", title: "Amoeba Expansion" },
+            { file: "1D_Euglena.html", title: "Euglena Typography" },
+            { file: "2A_water.html", title: "Floating in Water" },
+            { file: "2B_lung.html", title: "Inside the Lung" },
+            { file: "2C_magma.html", title: "Within Magma" },
+            { file: "2D_geography.html", title: "100M Years Beneath" },
+            { file: "3A_sword.html", title: "Sword Poem" },
+            { file: "3B_colorChange.html", title: "Microbe Assault" },
+            { file: "3C_zanzou.html", title: "Lingering Shadows" },
+            { file: "3D_dense.html", title: "Crowded Microbes" },
+            { file: "4A_mouser hover.html", title: "Touch Reaction" },
+            { file: "4B_mouseClick.html", title: "Light & Attraction" },
+            { file: "4C_mouseGather.html", title: "Following You" },
+            { file: "4D_mouseDrag.html", title: "Hidden Microbes" },
+            { file: "5A_reproduction.html", title: "Cell Division" },
+            { file: "5B_lifespan.html", title: "Microbial Lifespan" },
+            { file: "5C_lifeLength.html", title: "Continuity of Life" },
+            { file: "5D_separating.html", title: "Divide, Divide" }
+        ];
+
+        const container = document.querySelector('.grid-container');
+
+        variations.forEach(variation => {
+            const div = document.createElement('div');
+            div.classList.add('grid-item');
+            div.setAttribute('data-title', variation.title);
+
+            const iframe = document.createElement('iframe');
+            iframe.src = `variations/${variation.file}`;
+
+            div.appendChild(iframe);
+
+            // クリックで詳細ページへ遷移
+            div.addEventListener('click', () => {
+                window.location.href = `index.html?file=${variation.file}`;
+            });
+
+            container.appendChild(div);
+        });
+    </script>
+
+</body>
+</html>
